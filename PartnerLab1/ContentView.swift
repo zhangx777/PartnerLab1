@@ -15,7 +15,7 @@ struct ContentView: View {
         "American Foxhound",
         "Dutch Shepherd",
         "Havanese",
-        "leonberger",
+        "Leonberger",
         "Mudi",
         "Norwegian Lundehund",
         "Pharaoh Hound",
@@ -52,7 +52,14 @@ struct ContentView: View {
         ScrollView {
             
             // Introduction
-            Text("Tap on the dog to see description").font(.headline)
+            Text("Tap on the dog to see the description")
+                .background(Color.black)
+                .font(.largeTitle)
+            //    .fontWeight(.bold)
+                .foregroundColor(Color.yellow)
+                .multilineTextAlignment(.center)
+                .padding([.bottom], 30)
+            //    .underline()
             
             // Dog images
             LazyVGrid(columns: columns, spacing:20){
