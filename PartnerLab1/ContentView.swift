@@ -1,8 +1,9 @@
 //
-//  ContentView.swift
 //  PartnerLab1
+//  Group 7
+//  Tori Zhang & Dave Norvall
 //
-//  Created by ToriZhang on 9/22/25.
+//  Date September 23 2025
 //
 
 import SwiftUI
@@ -49,56 +50,63 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            
-            // Introduction
-            Text("Tap on the dog to see the description")
-                .background(Color.black)
-                .font(.largeTitle)
-            //    .fontWeight(.bold)
-                .foregroundColor(Color.yellow)
-                .multilineTextAlignment(.center)
-                .padding([.bottom], 30)
-            //    .underline()
-            
-            // Dog images
-            LazyVGrid(columns: columns, spacing:20){
-                ForEach(dogNames, id: \.self) { dogName in
-                    Image(dogName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width:100, height:100)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .onTapGesture {self.selectedDescription = self.dogDict[dogName]}
-                }
-            }
-            
-            // Selected dog description
-            if let description = selectedDescription {
-                Text(description)
-                    .padding()
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.secondary.opacity(0.1))
-                    .cornerRadius(10)
-            } else {
-                Text("Choose a dog to see its description.")
-                    .italic()
+        ZStack {
+            Image("doggie_background").renderingMode(.original).resizable(capInsets: EdgeInsets(top: 1.0, leading: 1.0, bottom: 1.0, trailing: 1.0))  //Background
+            VStack {
+                // Introduction
+                Text("Tap on the dog to see the description")
+                    .background(Color.black)
+                    .font(.largeTitle)
+                //    .fontWeight(.bold)
+                    .foregroundColor(Color.yellow)
                     .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding()
+                  //  .padding([.bottom], 30)
+                //    .underline()
+                
+                // Dog images
+                LazyVGrid(columns: columns, spacing:20){
+                    ForEach(dogNames, id: \.self) { dogName in
+                        Image(dogName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:100, height:100)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .onTapGesture {self.selectedDescription = self.dogDict[dogName]}
+                    }
+                }
+                
+                // Selected dog description
+                if let description = selectedDescription {
+                    Text(description)
+                        .background(Color.black)
+                        .font(.title3)
+                    //    .fontWeight(.bold)
+                        .foregroundColor(Color.teal)
+                        .multilineTextAlignment(.leading)
+                        .padding([.bottom], 30)
+                    //    .underline()
+                } else {
+                    Text("Choose a dog to see its description.")
+                        .background(Color.black)
+                        .foregroundColor(Color.yellow)
+                        .font(.title)
+                        .italic()
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
+                
+          //      Spacer()
             }
-            
-            Spacer()
-        }
-        .padding()
-        .onAppear {
-            self.dogDict = Dictionary(uniqueKeysWithValues: zip(self.dogNames, self.dogDescriptions))
+         //   .padding()
+            .onAppear {
+                self.dogDict = Dictionary(uniqueKeysWithValues: zip(self.dogNames, self.dogDescriptions))
+            }
         }
     }
 }
-
 #Preview {
     ContentView()
 }
+
